@@ -1,0 +1,14 @@
+#!/bin/sh
+#FC  = mpifrt
+#OPT = -Kfast,parallel
+#FC  = mpifrtpx 
+#OPT = -Kfast,parallel
+
+#FC  = sxmpif90
+#OPT = -P openmp -Chopt -R5
+
+#FC  = mpifort 
+FC  = gfortran
+#OPT = -O3 -qopenmp
+#OPT = -check bounds
+#OPT = -mcmodel=large -shared-intel
