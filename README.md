@@ -1,23 +1,46 @@
+# modeFold ver.1.3
 
- Fortran program for vocal fold oscillation modeFold ver1.1
- 2023/Nov/13    by  Tsukasa Yoshinaga
- 
- This program calculate the vocal fold oscillation from the
- eigenmodes obtained from the COMSOL eigenanalysis.
- The external forces can be chosen as forced oscillation or
- 1D Bernoulli's equation.
+**Fortran program for vocal fold oscillation simulation**  
+**Date:** 2025/Oct/23  
+**Author:** Tsukasa Yoshinaga  
 
- In this version, the vocal fold shape was detected in a
- structured grids. The calcSDF calculates the inside and 
- outside of the vocal fold region and calculates the distance
- from the wall. The structured grids were outputed by 
- writeVTK2. Param file was used to determin the grid sizes.
+---
 
- Input files: Parameter file (param.txt)
-              COMSOL output (VTK file)
-                            (frequency text)
-              Surface point list (surface.txt)
- Output files: Structured grid files (result/grid***.vtu)
-               flowrate (result/flowrate.txt)
-   
- Module file: variMode
+## Overview
+
+This program calculates **vocal fold oscillations** using the eigenmodes obtained from **COMSOL eigenanalysis**.  
+The external aerodynamic force can be selected from either a **1D incompressible flow** or a **1D compressible flow** model, both based on **Bernoulli’s principle**.
+
+The airflow and vocal fold vibration are computed using the **equivalent circuit model** proposed by *Ishizaka and Flanagan (1972)*.  
+The results have been validated against **experimental measurements** and **3D compressible flow simulations** (*Yoshinaga and Zhang, 2025*).
+
+---
+
+## Version History
+
+### From ver.1.0 to ver.1.2
+- Added calculation of **SDF (Signed Distance Function)**.  
+- When `noutfmt = 2`, structured grids and SDF values are generated via the subroutine `writeVTK2`.  
+- `SDF(:,:)`: binary field (0 = flow, 1 = solid)  
+- `SDF2(:,:)`: distance from the surface  
+
+### From ver.1.2 to ver.1.3
+- Added **1D compressible flow model** (`calcFlow`), enabled by setting `iflow = 1`.  
+- Airflow is calculated from the inlet chamber to the subglottal tract.  
+  The glottal flow rate is computed and the supraglottal pressure is updated accordingly.
+
+---
+
+## Requirements
+
+- **Fortran 90** or later  
+- No external libraries required  
+
+---
+
+## Compilation and Execution
+
+```bash
+make clean
+make
+./modeFold
