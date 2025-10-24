@@ -4,6 +4,7 @@ modeFold
 #ignore built files in 'src/objs'
 /src/*.mod
 /src/objs/*
+!/src/objs/.gitignore
 
 #ignore result folder
 /result/*
