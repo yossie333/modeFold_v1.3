@@ -44,6 +44,7 @@ The results have been validated against experimental measurements and 3D compres
 make clean
 make
 ./modeFold
+```
 
 ---
 
