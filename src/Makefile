@@ -12,7 +12,6 @@ SRC  =  variMode.f90\
 	readVTK.f90\
 	writeVTK.f90\
 	writeVTK2.f90\
-	writeVTK3.f90\
 	heapsort.f90\
 	surfExtract.f90\
 	initia.f90\
@@ -28,6 +27,7 @@ SRC  =  variMode.f90\
 	output.f90\
 	step.f90\
 	calcSDF.f90\
+	calcFlow.f90\
 	main.f90
 
 OBJ  =  $(patsubst %.f90, $(OBJDIR)/%.o, $(SRC))

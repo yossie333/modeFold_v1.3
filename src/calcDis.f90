@@ -25,7 +25,8 @@ subroutine calcDis
                   ! mm/s -> m/s
                   vc = vc/1000.d0
 
-                  fdis(i,j) = -vc/dt
+                  ! force = mass * accerelation
+                  fdis(i,j) = -mass*vc/dt
                   fy(i,j) = fy(i,j) + fdis(i,j)
 
                   ! flag for contact iteration calculation

@@ -1,7 +1,7 @@
 subroutine surfArea
 !*******************************************************************
-! Fortran program for vocal fold oscillation modeFold ver1.0
-! 2023/Nov/7    by  Tsukasa Yoshinaga
+! Fortran program for vocal fold oscillation: modeFold ver.1.3
+! 2025/Oct/23    by Tsukasa Yoshinaga
 ! 
 ! This program calculate the surface area for each surface point
 ! to calculate the force from the pressure.
@@ -26,6 +26,12 @@ subroutine surfArea
          !extract superior plane
          xsup = maxval(x)
          write(*,*)"superior plane, x= ",xsup
+         !extract inferior-superior length
+         lis = maxval(x) - minval(x)
+         write(*,*)"inferior-superior length, lis= ",lis
+         !mm -> m
+         lis = lis*1.d-3
+         
          nxsup=0
          do i=1,nsurfl
              nxsup=i
@@ -49,11 +55,6 @@ subroutine surfArea
                sarea(i,j) = ds*dz
             enddo
          enddo
-         !open(10,file='area.txt',status="replace")
-         !   do i=2,nxsup-1
-         !    write(10,'(18E15.6)')(sarea(i,j),j=2,nsurfz-1)
-         !   enddo
-         !close(10)
 
          write(*,*)"Calculation of surface area end"
          write(*,'()')

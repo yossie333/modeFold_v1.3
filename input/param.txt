@@ -1,24 +1,20 @@
-# parameters for modeFold_v1.1
+# parameters for modeFold_v1.3
 # number of modes
 20
 # number of points along z-axis(nsurfz)
 20
-# number of step nstep
-2000
-# output interval nwrite
+# number of step (nstep)
+10000
+# output interval steps (nwrite)
 20
 # output format (i=1: unstructured, i=2, structured)
-2
-# number of grid in x,y,z
-40 30 30
-# bounds for grids in x,y,z direction 
--0.1d0 17.d0 0.d0 9.d0 0.d0 17.d0
+1
 # time step for time integration dt
 1.0E-5
 # damping coefficient zeta
 0.06
-# contact coefficients kc1 and kc2 (N / mm*rad)
-9.000E-3    6.0000E+0  
+# contact coefficients kc1 and kc2 (N / m*rad)
+9.0000E+0    6.0000E+3  
 # max iteration for contact calculation
 100
 # filename for eigenmode frequencies
@@ -31,23 +27,30 @@ surface.txt
 input
 # result directory
 result
-# kind of external force (iforce)
+#isample (whether sample the surface displacement or not)
+1
+#sampling points
+3
+947 824  949
+#sampling point offset (x, y, z axes)
+-10.5132d0 8.3875d0 -8.5d0
+# kind of external force (iforce=0:flow, iforce =1:sinusoidal)
 0
 # subglottal pressure Ps (Pa)
-2900
+1800
 # air density (kg/m3)
 1.13
 # air viscousity (Pa s)
 1.80000E-5
-# coefficient for force ha
-9000000
-
-
-# kind of external force (iforce)
+# mass of vocal fold (Kg)
+1.0425E-3
+# switch for 1D compressible flow simulation (iflow=1:compressible,iflow=0:incompressible)
 1
-# frequency for external force (iforce=1)
-100
-# amplitude for force5000000000000
-2500
-
-
+# vocal tract length (cm) and area (cm^2)(only for straight VT), number of section
+17.5   2.839  10 
+# inlet chamber length (cm) and area (cm^2)
+10.0   16.32
+# subglottal length (cm) and area (cm^2), number of section
+15.0   2.839  3
+# speed of sound c0
+343.d0

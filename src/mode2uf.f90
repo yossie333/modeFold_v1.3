@@ -17,9 +17,10 @@ subroutine mode2uf
            vf(i)=0.d0
            wf(i)=0.d0
            do imode=1,nmode
-              uf(i) = uf(i) + qi(imode)*mode(1,i,imode)
-              vf(i) = vf(i) + qi(imode)*mode(2,i,imode)
-              wf(i) = wf(i) + qi(imode)*mode(3,i,imode)
+              !convert displacement(m) to (mm)
+              uf(i) = uf(i) + qi(imode)*mode(1,i,imode)*1.d+3
+              vf(i) = vf(i) + qi(imode)*mode(2,i,imode)*1.d+3
+              wf(i) = wf(i) + qi(imode)*mode(3,i,imode)*1.d+3
            enddo
            uf(i)=uf(i)+x(i)
            vf(i)=vf(i)+y(i)

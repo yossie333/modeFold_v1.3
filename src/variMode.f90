@@ -9,9 +9,14 @@ module variMode
 
         !readParam
         integer nmode,iforce,nstep,nwrite,noutfmt
+        integer iflow,Nsecp,Nsecg
+        integer isample,nsample
+        integer, allocatable :: isp(:)
         double precision pi,forcef,famp,dt,zeta
-        double precision rho,Ps,ha,mu
+        double precision rho,Ps,mu,mass
         double precision, allocatable :: Ug(:)
+        double precision Asp,Lsp,Asg,Lsg,Asg1,Lsg1
+        double precision c0,offset(3)
         character(80) ffreq,fmode,fsurf,idir,rdir
 
         !readFreq
@@ -32,9 +37,9 @@ module variMode
 
         !surfArea
         integer nsep,nxsup
-        double precision minHarea,xsup,ymid
+        double precision minHarea,xsup,ymid,lis
         double precision, allocatable:: psurf(:),sarea(:,:),harea(:)
-        double precision, allocatable:: degree(:,:,:)
+        double precision, allocatable:: degree(:,:,:),minHareac(:)
 
         !initia
         double precision, allocatable:: fi(:),qi(:),qidot(:)
@@ -42,6 +47,11 @@ module variMode
         double precision, allocatable:: u(:),v(:),w(:)
         double precision, allocatable:: uf(:),vf(:),wf(:)
         double precision, allocatable:: fx(:,:),fy(:,:),fz(:,:)
+        double precision Lu,Cu,Lui,Cui,R2,La,Ca,Lr,Rr
+        double precision, allocatable:: Pd(:),Ud(:)
+        double precision, allocatable:: Uu(:),Pu(:)
+        double precision, allocatable:: Pout(:),Pg(:)
+        double precision, allocatable:: his_uvw(:,:,:)
 
         !contact
         integer ncont,contactflg

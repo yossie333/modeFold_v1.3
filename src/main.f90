@@ -1,25 +1,44 @@
 program main
 !*******************************************************************
-! Fortran program for vocal fold oscillation modeFold ver1.1
-! 2023/Nov/13    by  Tsukasa Yoshinaga
+! Fortran program for vocal fold oscillation: modeFold ver1.3
+! 2025/Oct/23    by  Tsukasa Yoshinaga
 ! 
-! This program calculate the vocal fold oscillation from the
+! This program calculates vocal fold oscillations using the
 ! eigenmodes obtained from the COMSOL eigenanalysis.
-! The external forces can be chosen as forced oscillation or
-! 1D Bernoulli's equation.
+! The external forces can be selected from eigher a 1D imcompressible 
+! or a 1D compressible flow model, both based on Bernoulli's principle.
 !
-! In this version, the vocal fold shape was detected in a
-! structured grids. The calcSDF calculates the inside and 
-! outside of the vocal fold region and calculates the distance
-! from the wall. The structured grids were outputed by 
-! writeVTK2. Param file was used to determin the grid sizes.
+! Updates from version 1.0 to 1.2:
+! -Calculation of SDF(Signed Distance FUnction) was added.
+! -By putting noutfmt = 2, structured grids and SDF values
+!  are generated with the subroutine writeVTK2 
+! -SDF(:,:): binaryfield (0 for flow, 1 for solid)
+! -SDF2(:,:): distance from the surface
 !
-! Input files: Parameter file (param.txt)
-!              COMSOL output (VTK file)
-!                            (frequency text)
-!              Surface point list (surface.txt)
-! Output files: Structured grid files (result/grid***.vtu)
-!               flowrate (result/flowrate.txt)
+! Updates from version 1.2 to 1.3:
+! -A 1D compressible flow model was added (subroutine calcFlow), 
+!  whichs can be enabled by setting iflow = 1.
+!
+! In this version, the airflow is calculated from the inlet
+! chamber to the subglottal tract. The glottal flow rate is then
+! computed, and the pressure in the supraglottal tract
+! is updated accordingly. All flow components are computed using 
+! the equivalent circuit model proposed by Ishizaka and Flanagan(1972).
+!
+! The vocal fold vibration and airflow results in this model have been
+! validated against experimental measurements and 3D compressible flow
+! simulations (Yoshinaga and Zhang, 2025).
+!
+! Input files: 
+!        -Parameter file: param.txt
+!        -COMSOL output: eigenmodes (.vtu) and frequencies (.txt)
+!        -Surface point list: surface.txt
+!
+! Output files: 
+!        -Unstructured grid files (result/deform***.vtu)
+!        -Displacement history data (result/history***)   
+!        -Flowrate (result/flowrate.txt)
+!        -Mouth pressure (result/pressure.txt)
 !   
 ! Module file: variMode
 !*******************************************************************
@@ -52,16 +71,12 @@ program main
 
           call step(istep)
 
-          if(noutfmt .eq.2)then
-             call calcSDF
-          endif
-
           if (mod(istep,nwrite).eq.0)then             
              write(*,*)"MinArea: ",minHarea,",  Ug: ",Ug(istep)
 
              if(noutfmt .eq. 2)then
+                  call calcSDF
                   call writeVTK2(istep/nwrite)
-                  !call writeVTK3(istep/nwrite)
              elseif(noutfmt .eq. 1)then
                   call writeVTK(istep/nwrite)
              endif

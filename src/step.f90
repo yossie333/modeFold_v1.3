@@ -18,7 +18,7 @@ subroutine step(istep)
 !*******************************************************************
         use variMode
         implicit none
-        integer i,imode,istep,icont
+        integer i,j,imode,istep,icont
 
         ! calculate areas along surface
         call calcArea
@@ -55,9 +55,13 @@ subroutine step(istep)
         ! qo <- qi, qodot <- qidot
         call uf2u
 
+        if (isample .eq. 1)then
+           do i=1,nsample
+              his_uvw(1,i,istep)=u(isp(i))+offset(1)
+              his_uvw(2,i,istep)=-v(isp(i))+offset(2)
+              his_uvw(3,i,istep)=w(isp(i))+offset(3)
+           enddo
+        endif
 
-        !open(10,file="result/qi.txt",position="append")
-        !    write(10,'(5E15.7)')(qi(imode),imode=1,5)
-        !close(10)
 
 end subroutine step

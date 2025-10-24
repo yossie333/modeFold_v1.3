@@ -1,27 +1,32 @@
 subroutine readVTK
 !*******************************************************************
-! Fortran program for vocal fold oscillation modeFold ver1.0
-! 2023/Nov/7    by  Tsukasa Yoshinaga
-! 
-! This program read COMSOL output vtk files for shapes and modes.
-! The coodinates were changed to x (flow direction)
-!                                y (medial-lateral direction)
-!                                z (spanwise direction)
-! The eigenmdoe vectors were normalized by the maximum value.
+! Fortran program for vocal fold oscillation: modeFold ver.1.3
+! 2025/Oct/23    by Tsukasa Yoshinaga
+!
+! This program reads COMSOL output VTK files containing
+! the geometry and eigenmodes of the vocal folds.
+!
+! The coordinate system is defined as:
+!   x : flow direction
+!   y : medial–lateral direction
+!   z : spanwise direction
+!
+! The eigenmode vectors are normalized by their maximum amplitude.
+!
 ! Parameters:
-! nop   : number of grid points
-! noc   : number of cells
-! connect(noc) : connectivity between grids
-! offsets      : number of grids for each ellement
-! types        : ellement types
-! x,y,z : initial grid location
-! mode  : eigenmode vectors at each grids up to nmode
-! mmax  : maximum value in the mode
+!   nop          : number of grid points
+!   noc          : number of cells
+!   connect(noc) : grid connectivity
+!   offsets      : number of grid points per element
+!   types        : element types
+!   x, y, z      : initial grid coordinates
+!   mode         : eigenmode vectors at each grid up to nmode
+!   mmax         : maximum amplitude in the mode
 !*******************************************************************
         use variMode
         implicit none
         integer i,j,iunit,itmp(4),imode
-        double precision mtmp(3)
+        double precision mtmp(3),cj
         character(80)tmp
 
         iunit = 10
@@ -113,15 +118,21 @@ subroutine readVTK
            enddo
            read(iunit,'(A)')tmp
         enddo
+
+        !lumped mass for each point
+        mass = mass / nop
         
-        mmax=maxval(mode)
-        write(*,*)"max mode value",mmax
         !normalizing
         do imode=1,nmode
+           cj = 0.d0
            do i=1,nop
-              mode(1,i,imode)=mode(1,i,imode)/mmax
-              mode(2,i,imode)=mode(2,i,imode)/mmax
-              mode(3,i,imode)=mode(3,i,imode)/mmax
+              cj = cj + mode(1,i,imode)**2+mode(2,i,imode)**2+mode(3,i,imode)**2
+           enddo
+           cj = 1.d0/(sqrt(mass*cj))
+           do i=1,nop
+              mode(1,i,imode)=mode(1,i,imode)*cj
+              mode(2,i,imode)=mode(2,i,imode)*cj
+              mode(3,i,imode)=mode(3,i,imode)*cj
            enddo
         enddo
 

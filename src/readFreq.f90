@@ -1,13 +1,14 @@
 subroutine readFreq
 !*******************************************************************
-! Fortran program for vocal fold oscillation modeFold ver1.0
-! 2023/Nov/7    by  Tsukasa Yoshinaga
-! 
-! This program read eigenmode frquencies from COMSOL file.
-! File name is defined by param.txt.
-! ff  : eigenmode frequency
-! omg : angular eigenmode frequency
+! Fortran program for vocal fold oscillation: modeFold ver.1.0
+! 2025/Oct/23    by Tsukasa Yoshinaga
 !
+! This program reads eigenmode frequencies from a COMSOL output file.
+! The file name is specified in "param.txt".
+!
+! Variable list:
+!   ff  : eigenmode frequency [Hz]
+!   omg : angular eigenmode frequency [rad/s]
 !*******************************************************************
         use variMode
         implicit none

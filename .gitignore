@@ -1,0 +1,9 @@
+.DS_Store
+
+#ignore built files in 'src/objs'
+/src/*.mod
+/src/objs/*
+
+#ignore result folder
+/result/*
+!/result/.gitignore

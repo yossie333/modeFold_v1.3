@@ -1,7 +1,7 @@
 subroutine surfExtract
 !*******************************************************************
-! Fortran program for vocal fold oscillation modeFold ver1.0
-! 2023/Nov/7    by  Tsukasa Yoshinaga
+! Fortran program for vocal fold oscillation: modeFold ver.1.3
+! 2025/Oct/23    by Tsukasa Yoshinaga
 ! 
 ! This program extract surface point data from surface coordinate
 ! read from surface.txt.
@@ -20,7 +20,7 @@ subroutine surfExtract
         use variMode
         implicit none
         integer i,j,k,iunit,flg
-        double precision dz
+        double precision dz,e
 
         ! read surface.txt for surface extraction
         iunit=10
@@ -83,14 +83,15 @@ subroutine surfExtract
 
         
         !search point number along surface ->surfp
+        e = 1.d-3
         allocate(surfp(nsurfl,nsurfz))
         do j=1,nsurfz
              do i=1,nsurfl
                 flg=0
                 do k=1,nos
-                    if(nint(x(surfl(k)+1)*1E3).eq.nint(surflx(i)*1E3) .and. &
-                       nint(y(surfl(k)+1)*1E3).eq.nint(surfly(i)*1E3) .and. &
-                       nint(z(surfl(k)+1)*1E3).eq.nint(surflz(j)*1E3)) then
+                    if(abs(x(surfl(k)+1)-surflx(i)) .lt. e .and. &
+                       abs(y(surfl(k)+1)-surfly(i)) .lt. e .and. &
+                       abs(z(surfl(k)+1)-surflz(j)) .lt. e) then
                        surfp(i,j)=surfl(k)
                        flg=flg+1
                        if(flg.ge.2)then
