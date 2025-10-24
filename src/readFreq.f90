@@ -1,7 +1,7 @@
 subroutine readFreq
 !*******************************************************************
-! Fortran program for vocal fold oscillation: modeFold ver.1.0
-! 2025/Oct/23    by Tsukasa Yoshinaga
+! Fortran program for vocal fold oscillation modeFold ver1.0
+! 2023/Nov/7    by  Tsukasa Yoshinaga
 !
 ! This program reads eigenmode frequencies from a COMSOL output file.
 ! The file name is specified in "param.txt".

@@ -4,7 +4,7 @@ subroutine calcForce(t,n)
 ! 2025/Oct/23    by Tsukasa Yoshinaga
 ! 
 ! This program calculate the force on the surface of the vocal
-! tract. 
+! fold. 
 !
 ! fx, fy, fz: force in the general coordinates
 ! 
@@ -15,7 +15,7 @@ subroutine calcForce(t,n)
 ! t      :  current time (input)
 !
 ! iforce = 0: force is calculated from the 1D flow equations.
-! WHen iflow = 0:
+! When iflow = 0:
 !    The equations are mainly based on Bernoulli's principle.
 !    The glottal flowrate was simply calculated from the minimum area
 !       minHarea : the minimum area for flow channel.

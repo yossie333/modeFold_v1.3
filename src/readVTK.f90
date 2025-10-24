@@ -1,7 +1,7 @@
 subroutine readVTK
 !*******************************************************************
-! Fortran program for vocal fold oscillation: modeFold ver.1.3
-! 2025/Oct/23    by Tsukasa Yoshinaga
+! Fortran program for vocal fold oscillation modeFold ver1.0
+! 2023/Nov/7    by  Tsukasa Yoshinaga
 !
 ! This program reads COMSOL output VTK files containing
 ! the geometry and eigenmodes of the vocal folds.
