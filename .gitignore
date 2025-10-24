@@ -1,4 +1,5 @@
 .DS_Store
+modeFold
 
 #ignore built files in 'src/objs'
 /src/*.mod
