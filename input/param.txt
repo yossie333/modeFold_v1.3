@@ -53,4 +53,4 @@ result
 # subglottal length (cm) and area (cm^2), number of section
 15.0   2.839  3
 # speed of sound c0
-343.d0
+343.d0 
