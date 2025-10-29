@@ -40,7 +40,7 @@ subroutine calcFlow(n)
         !calculate glottal flow rate
         if (minHarea .gt. 0.d0 )then
                 Lg1 = rho*0.5d0*lis/minHarea 
-                Rk1 = 0.34d0*rho/minHarea**2 
+                Rk1 = beta*rho/minHarea**2
                 Rv1 = 12.d0*mu*lg**2*lis/minHarea**3
                 !newton raphson method
                 do i=1,100

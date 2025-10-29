@@ -47,7 +47,7 @@ module variMode
         double precision, allocatable:: u(:),v(:),w(:)
         double precision, allocatable:: uf(:),vf(:),wf(:)
         double precision, allocatable:: fx(:,:),fy(:,:),fz(:,:)
-        double precision Lu,Cu,Lui,Cui,R2,La,Ca,Lr,Rr
+        double precision Lu,Cu,Lui,Cui,R2,La,Ca,Lr,Rr,beta
         double precision, allocatable:: Pd(:),Ud(:)
         double precision, allocatable:: Uu(:),Pu(:)
         double precision, allocatable:: Pout(:),Pg(:)

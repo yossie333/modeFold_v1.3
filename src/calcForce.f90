@@ -129,6 +129,7 @@ subroutine calcForce(t,n)
                 endif
 
                 !surface pressure to force mapping
+                !do i=2,nsep-1
                 do i=2,nxsup
                     do j=2,nsurfz-1
                        dx = 0.5d0*(u(surfp(i+1,j)+1)-u(surfp(i-1,j)+1))

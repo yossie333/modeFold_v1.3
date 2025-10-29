@@ -21,7 +21,7 @@ subroutine initia
         use variMode
         implicit none
         integer i,j
-        double precision dx,dy,dz,ell,S
+        double precision dx,dy,dz,ell,S,alpha(2)
 
         allocate(fi(nmode),qi(nmode),qidot(nmode))
         allocate(qo(nmode),qodot(nmode))
@@ -72,20 +72,26 @@ subroutine initia
 
         !for 1D flow model
         if (iflow .eq. 1)then
+                !inductance, capacitance, resistance of each tract
                 Lui = rho * Lsg1 / (2.d0 * Asg1) 
                 Cui = Lsg1 *  Asg1 / (rho * c0**2)
                 ell = Lsg / dble(Nsecg)
                 Lu = rho * ell / (2.d0 * Asg) 
                 Cu = ell *  Asg / (rho * c0**2)
 
-                R2 = 0.14d0/Asp**2 * sqrt(rho*mu*343.d0)
+                !coefficient
+                alpha(1) = -2.5d-5*Ps+0.185d0
+                alpha(2) = 1.6d-3*Ps+0.6d0
+                beta = 1.125d-4*Ps+0.1375d0 
+
+                R2 = alpha(1)/Asp**2 * sqrt(rho*mu*c0)
                 ell = Lsp / dble(Nsecp)
                 La = rho * ell / Asp
                 Ca = (Asp * ell)/(rho * c0**2)
 
                 !radiation loads
                 Lr = rho * 1.1d0 * sqrt(Asp/pi) /Asp
-                Rr = 4.48d0*rho*c0/(9.d0 * pi**2 * Asp)
+                Rr = alpha(2)*rho*c0/(9.d0 * pi**2 * Asp)
                 
                 !initial pressure and flowrate for supra-and subglottal tract
                 allocate(Pd(Nsecp),Ud(Nsecp))
